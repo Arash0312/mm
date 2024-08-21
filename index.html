@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP-ایردراپ به فارسی</title>
+    <title>ایردراپ به فارسی</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>VIP-ایردراپ به فارسی</h1>
-        <div id="gameSelectContainer" class="grid-container">
+        <h1>ایردراپ به فارسی</h1>
         <div id="gameSelectContainer" class="grid-container">
             <div class="game-option" data-game="7">
             <img src="https://cdn.hamsterkombat.io/polysphere/image.webp" alt="Polysphere">
@@ -41,20 +40,22 @@
                 <p>Bike Ride 3D</p>
             </div>
         </div>
+
+        <div class="form-group hidden" id="keyCountGroup">
+            <label for="keyCountSelect">تعداد کلیـد</label>
+            <div id="keyCountSelect" class="key-slider">
+                <input type="range" min="1" max="6" value="1" id="keyRange">
+                <span id="keyValue">1</span>
+            </div>
+        </div>
         <button id="startBtn" class="hidden">شــروع | Start</button>
 
         <div id="progressContainer" class="hidden">
             <div class="progress-bar">
-                <div id="progressBar">درحال انجام درخواست</div>
+                <div id="progressBar">درحال ساخت</div>
             </div>
             <p id="progressText">0%</p>
             <p id="progressLog">در حال شروع..(ممکنه طول بکشه-صبور باشید)</p>
-        </div>
-
-        <div id="keyContainer" class="hidden">
-            <h2 id="generatedKeysTitle" class="hidden">ساخت کلید</h2>
-            <div id="keysList"></div>
-            <button id="copyAllBtn" class="hidden">کپی کردن تمام کلید ها</button>
         </div>
 
         <p id="keyCountLabel">ترافیک ساخت در این سرور کمتر از سرور اصلی است</p>
