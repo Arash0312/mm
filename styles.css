@@ -1,0 +1,243 @@
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: #1e1e1e; /* Slightly lighter background for container */
+    border-radius: 10px;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.6);
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Heading */
+h1 {
+    margin-bottom: 25px;
+    font-size: 24px;
+    color: #ff5722; /* Bright orange color for title */
+    font-weight: 700;
+}
+
+/* Grid Layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.game-option {
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    background-color: #2c2c2c; /* Darker background for game options */
+}
+
+.game-option img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.game-option p {
+    font-weight: 500;
+    color: #e0e0e0; /* Light text color */
+}
+
+.game-option:hover, .game-option.selected {
+    transform: scale(1.05);
+    background-color: #333; /* Darker background on hover */
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #e0e0e0; /* Light text color */
+}
+
+.key-slider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.key-slider input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: #444; /* Darker background for slider */
+    outline: none;
+    transition: background 0.3s;
+}
+
+.key-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ff5722; /* Bright orange thumb */
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.key-slider input[type="range"]:hover::-webkit-slider-thumb {
+    background: #e64a19; /* Darker orange on hover */
+    transform: scale(1.1); /* Slightly larger thumb on hover */
+}
+
+#keyValue {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff5722; /* Bright orange */
+}
+
+/* Buttons */
+button {
+    background-color: #ff5722; /* Bright orange */
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #e64a19; /* Darker orange on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+button:active {
+    background-color: #d84315; /* Even darker orange on click */
+    transform: translateY(0); /* Reset lift on click */
+}
+
+/* Hidden Elements */
+.hidden {
+    display: none;
+}
+
+/* Progress Bar */
+.progress-bar {
+    background-color: #333;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 25px;
+    height: 35px;
+    position: relative;
+}
+
+.progress-bar div {
+    height: 100%;
+    background-color: #ff5722; /* Bright orange */
+    width: 0;
+    transition: width 0.5s, background-color 0.3s;
+}
+
+#progressText {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+/* Key Item */
+.key-item {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.key-item input {
+    flex: 1;
+    padding: 14px;
+    font-size: 16px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    margin-right: 12px;
+    background-color: #2c2c2c; /* Dark background for input */
+    color: #e0e0e0; /* Light text color */
+}
+
+.copyKeyBtn {
+    background-color: #4caf50; /* Green */
+    border: none;
+    padding: 12px 20px;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.copyKeyBtn:hover {
+    background-color: #388e3c; /* Darker green on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.copyKeyBtn:active {
+    background-color: #2c6b2f; /* Even darker green on click */
+    transform: translateY(0); /* Reset lift on click */
+}
+
+/* Footer */
+.footer {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #777; /* Light gray */
+}
+
+.footer p {
+    margin: 0;
+}
+
+.footer .telegram-btn {
+    background-color: #ff5722; /* Bright orange */
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 5px;
+}
+
+.footer .telegram-btn:hover {
+    background-color: #e64a19; /* Darker orange on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.footer .telegram-btn:active {
+    background-color: #d84315; /* Even darker orange on click */
+    transform: translateY(0); /* Reset lift on click */
+}
+
+#copyStatus {
+    margin-top: 15px;
+    color: #4caf50; /* Green */
+}
