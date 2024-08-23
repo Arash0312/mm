@@ -14,29 +14,29 @@ body {
     background: hsl(202, 96%, 29%); /* پس‌زمینه کانتینر تیره */
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* سایه تیره‌تر */
-    padding: 20px; /* کاهش پدینگ کانتینر */
-    max-width: 350px; /* کاهش حداکثر عرض کانتینر */
+    padding: 30px;
+    max-width: 400px;
     width: 100%;
     text-align: center;
 }
 
 h1 {
-    margin-bottom: 20px; /* کاهش مارجین پایین عنوان */
-    font-size: 20px; /* کاهش اندازه فونت عنوان */
+    margin-bottom: 25px;
+    font-size: 24px;
     color: hwb(51 0% 0%); /* رنگ نارنجی */
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px; /* کاهش فاصله بین آیتم‌ها */
-    margin-bottom: 15px; /* کاهش مارجین پایین گرید */
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 .game-option {
-    border: 3px solid hwb(51 0% 0%); /* کاهش عرض نوار نارنجی */
-    border-radius: 8px; /* کاهش شعاع مرز */
-    padding: 8px; /* کاهش پدینگ آیتم‌ها */
+    border: 4px solid hwb(51 0% 0%); /* نوار نارنجی */
+    border-radius: 10px;
+    padding: 10px;
     text-align: center;
     cursor: pointer;
     transition: transform 0.3s, border-color 0.3s;
@@ -44,21 +44,21 @@ h1 {
     overflow: hidden;
 }
 
+/* ایجاد اثر مات هنگام کلیک */
 .game-option.clicked img {
     filter: blur(4px); /* مات کردن تصویر */
 }
 
 .game-option img {
     width: 100%;
-    border-radius: 6px; /* کاهش شعاع مرز تصویر */
-    margin-bottom: 8px; /* کاهش مارجین پایین تصویر */
+    border-radius: 8px;
+    margin-bottom: 10px;
     transition: filter 0.3s; /* اضافه کردن انیمیشن به مات شدن تصویر */
 }
 
 .game-option p {
     font-weight: 500;
     color: #ff5a01; /* رنگ متن روشن */
-    font-size: 14px; /* کاهش اندازه فونت متن */
 }
 
 .game-option:hover, .game-option.selected {
@@ -119,12 +119,12 @@ button {
     background-color: #ff6f00; /* رنگ نارنجی */
     color: white;
     border: none;
-    padding: 10px 18px; /* کاهش پدینگ دکمه */
-    font-size: 14px; /* کاهش اندازه فونت دکمه */
-    border-radius: 6px; /* کاهش شعاع مرز دکمه */
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top: 15px; /* کاهش مارجین بالا دکمه */
+    margin-top: 20px;
 }
 
 button:hover {
