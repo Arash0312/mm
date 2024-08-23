@@ -317,4 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.removeChild(textArea);
         }
     };
+});d(textArea);
+        }
+    };
 });
