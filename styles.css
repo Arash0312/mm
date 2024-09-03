@@ -1,200 +1,69 @@
-/* دارک مود */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: hsl(0, 0%, 3%); /* پس‌زمینه تیره */
-    color: #f35b03; /* رنگ متن روشن */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#app {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
 }
 
-.container {
-    background: hsl(202, 96%, 29%); /* پس‌زمینه کانتینر تیره */
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* سایه تیره‌تر */
-    padding: 30px;
-    max-width: 400px;
-    width: 100%;
+.content {
     text-align: center;
 }
 
-h1 {
-    margin-bottom: 25px;
-    font-size: 24px;
-    color: hwb(51 0% 0%); /* رنگ نارنجی */
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+.game-container {
     margin-bottom: 20px;
 }
 
-.game-option {
-    border: 4px solid hwb(51 0% 0%); /* نوار نارنجی */
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s, border-color 0.3s;
-    position: relative;
-    overflow: hidden;
-}
-
-/* ایجاد اثر مات هنگام کلیک */
-.game-option.clicked img {
-    filter: blur(4px); /* مات کردن تصویر */
-}
-
-.game-option img {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    transition: filter 0.3s; /* اضافه کردن انیمیشن به مات شدن تصویر */
-}
-
-.game-option p {
-    font-weight: 500;
-    color: #ff5a01; /* رنگ متن روشن */
-}
-
-.game-option:hover, .game-option.selected {
-    transform: scale(1.05);
-    border-color: #ff6f00; /* نوار نارنجی در حالت hover */
-}
-
-.form-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #e0e0e0; /* رنگ متن روشن */
-}
-
-.key-slider {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.key-slider input[type="range"] {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 8px;
-    border-radius: 5px;
-    background: #444; /* پس‌زمینه اسلایدر تیره‌تر */
-    outline: none;
-    transition: background 0.3s;
-}
-
-.key-slider input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #ff6f00; /* رنگ زبانه اسلایدر نارنجی */
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.key-slider input[type="range"]:hover::-webkit-slider-thumb {
-    background: #e65c00; /* رنگ زبانه اسلایدر در حالت hover */
-}
-
-#keyValue {
-    font-size: 18px;
-    font-weight: bold;
-    color: #ff6f00; /* رنگ نارنجی */
-}
-
-button {
-    background-color: #ff6f00; /* رنگ نارنجی */
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.reward {
     margin-top: 20px;
 }
 
-button:hover {
-    background-color: #e65c00; /* رنگ نارنجی تیره‌تر */
+.settings-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100vh;
+    background: #f1f1f1;
+    border-left: 2px solid #ccc;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
 }
 
-.hidden {
-    display: none;
-}
-
-.progress-bar {
-    background-color: #333; /* پس‌زمینه نوار پیشرفت تیره‌تر */
-    border-radius: 8px;
-    overflow: hidden;
-    margin-top: 25px;
-    height: 35px;
-    position: relative;
-}
-
-.progress-bar div {
-    height: 100%;
-    background-color: #ff6f00; /* رنگ نارنجی */
-    width: 0;
-    transition: width 0.5s;
-}
-
-#progressText {
-    margin-top: 15px;
-    font-weight: 600;
-}
-
-.key-item {
+.settings-title {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
 }
 
-.key-item input {
-    flex: 1;
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #555; /* رنگ مرز تیره‌تر */
-    border-radius: 8px;
-    margin-right: 12px;
-    background-color: #333; /* پس‌زمینه ورودی تیره‌تر */
-    color: #ffca09; /* رنگ متن روشن */
-}
-
-.copyKeyBtn {
-    background-color: #28a745;
+.settings-close-button {
+    background: none;
     border: none;
-    padding: 12px 20px;
-    color: white;
-    font-size: 16px;
-    border-radius: 8px;
+    font-size: 20px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-.copyKeyBtn:hover {
-    background-color: #218838;
+.social-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
 }
 
-.footer {
-    margin-top: 25px;
-    font-size: 14px;
-    color: #aaa; /* رنگ متن پایینی روشن‌تر */
+.social-button {
+    display: block;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #007bff;
 }
 
-#copyStatus {
-    margin-top: 15px;
-    color: #00506b; /* رنگ سبز */
+.pause-resume-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
 }
