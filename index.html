@@ -10,19 +10,19 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            background-color: #d4edda; /* سبز خاص برای پس‌زمینه */
-            color: #155724; /* رنگ متن متناسب */
+            background-color: #d4edda; /* Light green background */
+            color: #155724; /* Matching text color */
         }
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 10px 20px;
-            background-color: #c3e6cb; /* سبز روشن برای هدر */
-            border-bottom: 2px solid #155724; /* خط زیرین هدر */
+            background-color: #c3e6cb; /* Light green for header */
+            border-bottom: 2px solid #155724; /* Header underline */
         }
         .header button {
-            background-color: #28a745; /* سبز خاص برای دکمه */
+            background-color: #28a745; /* Green button */
             color: white;
             border: none;
             padding: 10px 15px;
@@ -32,25 +32,25 @@
             transition: background-color 0.3s ease;
         }
         .header button:hover {
-            background-color: #218838; /* سبز تیره‌تر برای حالت هاور */
+            background-color: #218838; /* Darker green on hover */
         }
         img {
             max-width: 90%;
             height: auto;
             margin-top: 20px;
-            border: 5px solid #c3e6cb; /* قاب سبز برای تصویر */
+            border: 5px solid #c3e6cb; /* Green border for image */
             border-radius: 10px;
         }
         .image-name {
             margin: 20px 0;
             font-size: 20px;
             font-weight: bold;
-            color: #155724; /* سبز متناسب با متن */
+            color: #155724; /* Matching green text */
         }
-        .last-update {
+        .last-update, .current-time {
             margin-top: 30px;
             font-size: 16px;
-            color: #6c757d; /* رنگ خاکی برای تاریخ آخرین بروز رسانی */
+            color: #6c757d; /* Gray color for updates */
         }
     </style>
 </head>
@@ -67,22 +67,27 @@
         <div class="image-name">PepeUsdt</div>
     </div>
 
-    <!-- ساعت آخرین بروز رسانی -->
+    <!-- Site creation time -->
     <div class="last-update">
-        زمان ساخت سایت: <span id="site-create-time"></span>
+        Site created on: <span id="site-create-time"></span>
+    </div>
+
+    <!-- Live clock -->
+    <div class="current-time">
+        Current Time (Tehran): <span id="current-time"></span>
     </div>
 
     <script>
-        // زمان ساخت سایت (مثال: تاریخ و ساعت ساخت سایت را به وقت ایران وارد کنید)
-        const siteCreateDate = new Date('2025-01-04T12:00:00'); // این زمان را به تاریخ و ساعت مورد نظر تغییر دهید
+        // Define the site's creation date and time (example: 2025-01-04T12:00:00)
+        const siteCreateDate = new Date('2025-01-04T12:00:00');
 
-        // تنظیم زمان به وقت ایران (UTC+3:30)
+        // Convert to Tehran time (UTC+3:30)
         function convertToIranTime(date) {
-            const iranOffset = 3.5 * 60; // 3 ساعت و 30 دقیقه (در دقیقه)
-            return new Date(date.getTime() + iranOffset * 60 * 1000); // تبدیل به زمان ایران
+            const iranOffset = 3.5 * 60; // 3 hours 30 minutes in minutes
+            return new Date(date.getTime() + iranOffset * 60 * 1000); // Convert to Tehran time
         }
 
-        // نمایش تاریخ و ساعت به وقت ایران
+        // Format date and time to Tehran time
         function formatDateToIranTime(date) {
             const iranTime = convertToIranTime(date);
 
@@ -95,9 +100,27 @@
             return `${dateString} ${timeString}`;
         }
 
-        // نمایش زمان ساخت سایت
+        // Display site creation time
         document.getElementById("site-create-time").textContent = formatDateToIranTime(siteCreateDate);
 
+        // Update and display the live clock
+        function updateCurrentTime() {
+            const now = new Date();
+            const iranTime = convertToIranTime(now);
+
+            const hours = iranTime.getHours().toString().padStart(2, '0');
+            const minutes = iranTime.getMinutes().toString().padStart(2, '0');
+            const seconds = iranTime.getSeconds().toString().padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+
+            document.getElementById("current-time").textContent = timeString;
+        }
+
+        // Update the live clock every second
+        setInterval(updateCurrentTime, 1000);
+
+        // Initial clock update
+        updateCurrentTime();
     </script>
 
 </body>
