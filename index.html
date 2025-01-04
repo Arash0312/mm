@@ -64,7 +64,7 @@
     <div>
         <!-- Replace 'image.jpg' with the actual name of your image file -->
         <img src="Picsart_25-01-04_21-24-29-611.jpg" alt="Image">
-        <div class="image-name">PepeUsdt</div>
+        <div class="image-name">pepe usdt</div>
     </div>
 
     <!-- Site creation time -->
@@ -79,11 +79,11 @@
 
     <script>
         // Define the site's creation date and time (example: 2025-01-04T12:00:00)
-        const siteCreateDate = new Date('2025-01-04T12:00:00');
+        const siteCreateDate = new Date('2025-01-04T12:00:00Z'); // UTC format
 
-        // Convert to Tehran time (UTC+3:30)
+        // Convert UTC to Tehran time (UTC+3:30)
         function convertToIranTime(date) {
-            const iranOffset = 3.5 * 60; // 3 hours 30 minutes in minutes
+            const iranOffset = 3.5 * 60; // Tehran time offset in minutes (UTC+3:30)
             return new Date(date.getTime() + iranOffset * 60 * 1000); // Convert to Tehran time
         }
 
