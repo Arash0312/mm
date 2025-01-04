@@ -47,6 +47,11 @@
             font-weight: bold;
             color: #155724; /* سبز متناسب با متن */
         }
+        .last-update {
+            margin-top: 30px;
+            font-size: 16px;
+            color: #6c757d; /* رنگ خاکی برای تاریخ آخرین بروز رسانی */
+        }
     </style>
 </head>
 <body>
@@ -59,8 +64,35 @@
     <div>
         <!-- Replace 'image.jpg' with the actual name of your image file -->
         <img src="Picsart_25-01-04_21-24-29-611.jpg" alt="Image">
-        <div class="image-name">Pepe</div>
+        <div class="image-name">PepeUsdt</div>
     </div>
+
+    <!-- ساعت آخرین بروز رسانی -->
+    <div class="last-update">
+        آخرین بروز رسانی: <span id="last-update-time"></span>
+    </div>
+
+    <script>
+        // زمان بروز رسانی را به صورت اتوماتیک نمایش می‌دهیم
+        function updateLastUpdateTime() {
+            const now = new Date();
+
+            // تنظیم زمان به وقت ایران (UTC+3:30)
+            const iranOffset = 3.5 * 60; // 3 ساعت و 30 دقیقه (در دقیقه)
+            const localTime = new Date(now.getTime() + iranOffset * 60 * 1000); // تبدیل به زمان ایران
+
+            const hours = localTime.getHours().toString().padStart(2, '0');
+            const minutes = localTime.getMinutes().toString().padStart(2, '0');
+            const seconds = localTime.getSeconds().toString().padStart(2, '0');
+            const date = `${localTime.getFullYear()}-${(localTime.getMonth() + 1).toString().padStart(2, '0')}-${localTime.getDate().toString().padStart(2, '0')}`;
+            const time = `${hours}:${minutes}:${seconds}`;
+
+            document.getElementById("last-update-time").textContent = `${date} ${time}`;
+        }
+
+        // فراخوانی تابع برای نمایش زمان بروز رسانی
+        updateLastUpdateTime();
+    </script>
 
 </body>
 </html>
