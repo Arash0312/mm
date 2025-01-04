@@ -3,37 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blum Autoclicker</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Stylish Image Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #d4edda; /* سبز خاص برای پس‌زمینه */
+            color: #155724; /* رنگ متن متناسب */
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #c3e6cb; /* سبز روشن برای هدر */
+            border-bottom: 2px solid #155724; /* خط زیرین هدر */
+        }
+        .header button {
+            background-color: #28a745; /* سبز خاص برای دکمه */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .header button:hover {
+            background-color: #218838; /* سبز تیره‌تر برای حالت هاور */
+        }
+        img {
+            max-width: 90%;
+            height: auto;
+            margin-top: 20px;
+            border: 5px solid #c3e6cb; /* قاب سبز برای تصویر */
+            border-radius: 10px;
+        }
+        .image-name {
+            margin: 20px 0;
+            font-size: 20px;
+            font-weight: bold;
+            color: #155724; /* سبز متناسب با متن */
+        }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <div class="content">
-            <div class="game-container">
-                <!-- Game elements will dynamically appear here -->
-            </div>
-            <div class="reward">
-                <!-- Reward message or item will be displayed here -->
-            </div>
-        </div>
+
+    <div class="header">
+        <button onclick="history.back()">Go Back</button>
+        <h1>Image Viewer</h1>
     </div>
 
-    <div class="settings-menu">
-        <h3 class="settings-title">
-            Blum Autoclicker
-            <button class="settings-close-button">×</button>
-        </h3>
-        <!-- Settings elements will be dynamically added here -->
+    <div>
+        <!-- Replace 'image.jpg' with the actual name of your image file -->
+        <img src="image.jpg" alt="Image">
+        <div class="image-name">image.jpg</div>
     </div>
 
-    <div class="social-buttons">
-        <a href="https://github.com/mudachyo/Blum" target="_blank" class="social-button">GitHub</a>
-        <a href="https://t.me/shopalenka" target="_blank" class="social-button">Telegram Channel</a>
-        <a href="https://mudachyo.codes/donate/" target="_blank" class="social-button">Donate</a>
-    </div>
-
-    <button class="pause-resume-btn">Pause</button>
-
-    <script src="script.js"></script>
 </body>
 </html>
