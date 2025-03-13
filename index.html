@@ -1,66 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stylish Image Viewer</title>
+    <title>ماشین حساب مهندسی</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #d4edda; /* سبز خاص برای پس‌زمینه */
-            color: #155724; /* رنگ متن متناسب */
-        }
-        .header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 10px 20px;
-            background-color: #c3e6cb; /* سبز روشن برای هدر */
-            border-bottom: 2px solid #155724; /* خط زیرین هدر */
-        }
-        .header button {
-            background-color: #28a745; /* سبز خاص برای دکمه */
+            height: 100vh;
+            background-color: #222;
             color: white;
+        }
+        .calculator {
+            width: 320px;
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+        }
+        .display {
+            width: 100%;
+            height: 50px;
+            text-align: right;
+            font-size: 1.5em;
+            padding: 10px;
+            border-radius: 5px;
+            background: #444;
+            color: white;
+            margin-bottom: 10px;
             border: none;
-            padding: 10px 15px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            font-size: 1.2em;
+            padding: 15px;
+            border: none;
+            background: #555;
+            color: white;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
+            transition: 0.3s;
         }
-        .header button:hover {
-            background-color: #218838; /* سبز تیره‌تر برای حالت هاور */
+        button:hover {
+            background: #777;
         }
-        img {
-            max-width: 90%;
-            height: auto;
-            margin-top: 20px;
-            border: 5px solid #c3e6cb; /* قاب سبز برای تصویر */
-            border-radius: 10px;
+        .equal {
+            background: #f39c12;
+            grid-column: span 2;
         }
-        .image-name {
-            margin: 20px 0;
-            font-size: 20px;
-            font-weight: bold;
-            color: #155724; /* سبز متناسب با متن */
+        .equal:hover {
+            background: #e67e22;
+        }
+        .clear {
+            background: #e74c3c;
+        }
+        .clear:hover {
+            background: #c0392b;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <button onclick="history.back()">Go Back</button>
-        <h1>BTC Usdt</h1>
-    </div>
+<div class="calculator">
+    <input type="text" id="display" class="display" disabled>
+    <div class="buttons">
+        <button onclick="clearDisplay()" class="clear">C</button>
+        <button onclick="appendToDisplay('(')">(</button>
+        <button onclick="appendToDisplay(')')">)</button>
+        <button onclick="appendToDisplay('/')">/</button>
+        
+        <button onclick="appendToDisplay('7')">7</button>
+        <button onclick="appendToDisplay('8')">8</button>
+        <button onclick="appendToDisplay('9')">9</button>
+        <button onclick="appendToDisplay('*')">*</button>
+        
+        <button onclick="appendToDisplay('4')">4</button>
+        <button onclick="appendToDisplay('5')">5</button>
+        <button onclick="appendToDisplay('6')">6</button>
+        <button onclick="appendToDisplay('-')">-</button>
+        
+        <button onclick="appendToDisplay('1')">1</button>
+        <button onclick="appendToDisplay('2')">2</button>
+        <button onclick="appendToDisplay('3')">3</button>
+        <button onclick="appendToDisplay('+')">+</button>
 
-    <div>
-        <!-- Replace 'image.jpg' with the actual name of your image file -->
-        <img src="Picsart_25-01-13_21-03-23-690.jpg" alt="Image">
-        <div class="image-name">ساعت معرفی: ۲۰:۰۰ در ۲۴ دی ۱۴۰۳</div>
+        <button onclick="appendToDisplay('0')">0</button>
+        <button onclick="appendToDisplay('.')">.</button>
+        <button onclick="calculateResult()" class="equal">=</button>
+        
+        <button onclick="appendToDisplay('Math.sqrt(')">√</button>
+        <button onclick="appendToDisplay('Math.pow(')">xʸ</button>
+        <button onclick="appendToDisplay('Math.sin(')">sin</button>
+        <button onclick="appendToDisplay('Math.cos(')">cos</button>
+        
+        <button onclick="appendToDisplay('Math.tan(')">tan</button>
+        <button onclick="appendToDisplay('Math.log10(')">log</button>
+        <button onclick="appendToDisplay('Math.PI')">π</button>
+        <button onclick="appendToDisplay('Math.E')">e</button>
     </div>
+</div>
+
+<script>
+    function appendToDisplay(value) {
+        document.getElementById('display').value += value;
+    }
+
+    function clearDisplay() {
+        document.getElementById('display').value = '';
+    }
+
+    function calculateResult() {
+        try {
+            let result = eval(document.getElementById('display').value);
+            document.getElementById('display').value = result;
+        } catch (error) {
+            document.getElementById('display').value = 'خطا';
+        }
+    }
+</script>
 
 </body>
 </html>
