@@ -3,128 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ماشین حساب مهندسی</title>
+    <title>نفوذ به سیستم</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #222;
-            color: white;
-        }
-        .calculator {
-            width: 320px;
-            background: #333;
+            background-color: black;
+            color: lime;
+            font-family: monospace;
+            font-size: 18px;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            user-select: none;
+            text-align: center;
+            direction: rtl;
         }
-        .display {
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 50px;
-            text-align: right;
-            font-size: 1.5em;
+            height: 100%;
+            background: black;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            font-size: 32px;
+            margin-top: 10%;
+            animation: blink 1s infinite alternate;
+        }
+        @keyframes blink {
+            from { opacity: 1; }
+            to { opacity: 0.3; }
+        }
+        .danger-sign {
+            font-size: 50px;
+            color: red;
+            margin-top: 20px;
+        }
+        #terminal {
+            margin-top: 20px;
+            font-size: 22px;
+            color: yellow;
+        }
+        #passwordInput {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: black;
+            border: 2px solid red;
+            color: white;
+            font-size: 20px;
             padding: 10px;
-            border-radius: 5px;
-            background: #444;
-            color: white;
-            margin-bottom: 10px;
-            border: none;
-        }
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-        button {
-            font-size: 1.2em;
-            padding: 15px;
-            border: none;
-            background: #555;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        button:hover {
-            background: #777;
-        }
-        .equal {
-            background: #f39c12;
-            grid-column: span 2;
-        }
-        .equal:hover {
-            background: #e67e22;
-        }
-        .clear {
-            background: #e74c3c;
-        }
-        .clear:hover {
-            background: #c0392b;
+            display: none;
+            text-align: center;
         }
     </style>
 </head>
-<body>
-
-<div class="calculator">
-    <input type="text" id="display" class="display" disabled>
-    <div class="buttons">
-        <button onclick="clearDisplay()" class="clear">C</button>
-        <button onclick="appendToDisplay('(')">(</button>
-        <button onclick="appendToDisplay(')')">)</button>
-        <button onclick="appendToDisplay('/')">/</button>
-        
-        <button onclick="appendToDisplay('7')">7</button>
-        <button onclick="appendToDisplay('8')">8</button>
-        <button onclick="appendToDisplay('9')">9</button>
-        <button onclick="appendToDisplay('*')">*</button>
-        
-        <button onclick="appendToDisplay('4')">4</button>
-        <button onclick="appendToDisplay('5')">5</button>
-        <button onclick="appendToDisplay('6')">6</button>
-        <button onclick="appendToDisplay('-')">-</button>
-        
-        <button onclick="appendToDisplay('1')">1</button>
-        <button onclick="appendToDisplay('2')">2</button>
-        <button onclick="appendToDisplay('3')">3</button>
-        <button onclick="appendToDisplay('+')">+</button>
-
-        <button onclick="appendToDisplay('0')">0</button>
-        <button onclick="appendToDisplay('.')">.</button>
-        <button onclick="calculateResult()" class="equal">=</button>
-        
-        <button onclick="appendToDisplay('Math.sqrt(')">√</button>
-        <button onclick="appendToDisplay('Math.pow(')">xʸ</button>
-        <button onclick="appendToDisplay('Math.sin(')">sin</button>
-        <button onclick="appendToDisplay('Math.cos(')">cos</button>
-        
-        <button onclick="appendToDisplay('Math.tan(')">tan</button>
-        <button onclick="appendToDisplay('Math.log10(')">log</button>
-        <button onclick="appendToDisplay('Math.PI')">π</button>
-        <button onclick="appendToDisplay('Math.E')">e</button>
+<body oncontextmenu="return false;" onkeydown="return disableKeys(event);">
+    <div class="loading-screen" id="loading">در حال پردازش...</div>
+    <div id="main-content" style="display: none;">
+        <div class="danger-sign">⚠️⚠️⚠️</div>
+        <div class="warning">خطر! اطلاعات شما در معرض خطر است!</div>
+        <div id="terminal">
+            اطلاعات شخصی شما برای سازنده ارسال شد.<br>
+            در حال نفوذ به سیستم...<br>
+            فایل‌های شما در حال انتقال هستند...<br>
+            گذرواژه‌های ذخیره شده استخراج شدند...<br>
+            ارتباط با سرور برقرار شد...<br>
+            فایروال شما غیرفعال گردید!<br>
+        </div>
+        <input type="password" id="passwordInput" placeholder="رمز عبور را وارد کنید" onkeydown="checkPassword(event)">
     </div>
-</div>
+    <script>
+        setTimeout(() => {
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("main-content").style.display = "block";
+        }, 3000);
 
-<script>
-    function appendToDisplay(value) {
-        document.getElementById('display').value += value;
-    }
+        const passwordInput = document.getElementById("passwordInput");
 
-    function clearDisplay() {
-        document.getElementById('display').value = '';
-    }
+        setTimeout(() => {
+            passwordInput.style.display = 'block';
+            passwordInput.focus();
+        }, 5000);
 
-    function calculateResult() {
-        try {
-            let result = eval(document.getElementById('display').value);
-            document.getElementById('display').value = result;
-        } catch (error) {
-            document.getElementById('display').value = 'خطا';
+        function disableMouse() {
+            document.onmousemove = function(event) {
+                event.preventDefault();
+            };
+            document.ontouchmove = function(event) {
+                event.preventDefault();
+            };
         }
-    }
-</script>
+        disableMouse();
 
+        function disableKeys(event) {
+            if ([116, 123, 27, 17, 18, 91].includes(event.keyCode) || (event.ctrlKey && [73, 85, 87, 83, 68].includes(event.keyCode))) {
+                event.preventDefault();
+                event.stopPropagation();
+                return false;
+            }
+        }
+        
+        function goFullscreen() {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) {
+                document.documentElement.msRequestFullscreen();
+            }
+        }
+        
+        setTimeout(goFullscreen, 500);
+        
+        window.history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            window.history.pushState(null, null, document.URL);
+        });
+        
+        let audio = new Audio('https://www.myinstants.com/media/sounds/windows-xp-error.mp3');
+        setTimeout(() => { audio.play(); }, 1000);
+        
+        function checkPassword(event) {
+            if (event.key === 'Enter') {
+                if (passwordInput.value === '1111') {
+                    alert('سیستم بازیابی شد!');
+                    location.reload();
+                } else {
+                    alert('رمز عبور نادرست است!');
+                }
+            }
+        }
+    </script>
 </body>
 </html>
