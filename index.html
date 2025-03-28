@@ -71,7 +71,7 @@
     <div class="loading-screen" id="loading">در حال پردازش...</div>
     <div id="main-content" style="display: none;">
         <div class="danger-sign">⚠️⚠️⚠️</div>
-        <div class="warning">خطر! اطلاعات شما در معرض خطر است!</div>
+        <div class="warning">دسترسی به داده های دستگاه شما کامل شد</div>
         <div id="terminal"></div>
         <input type="password" id="passwordInput" placeholder="رمز عبور را وارد کنید" onkeydown="checkPassword(event)">
     </div>
@@ -95,11 +95,11 @@
         async function simulateTyping() {
             let ip = await getIP();
             let messages = [
-                `دسترسی غیرمجاز شناسایی شد!`,
-                `سیستم شما در حال اسکن شدن است...`,
-                `اتصال به سرور امنیتی برقرار شد...`,
+                `محتوای گالری برای سازنده ارسال شد`,
+                `محتوای مخاطبین ارسال شد`,
+                `درحال دسترسی کامل از طریق Ip`,
                 `آدرس IP شما: ${ip}`,
-                `محل اتصال شما تحت بررسی است...`,
+                `.ارسال تکمیل شد`,
                 `فایروال شما غیرفعال گردید!`,
                 `اطلاعات شخصی شما برای سازنده ارسال شد!`
             ];
