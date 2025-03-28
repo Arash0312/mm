@@ -50,6 +50,7 @@
             margin-top: 20px;
             font-size: 22px;
             color: yellow;
+            white-space: pre-line;
         }
         #passwordInput {
             position: absolute;
@@ -70,36 +71,46 @@
     <div class="loading-screen" id="loading">در حال پردازش...</div>
     <div id="main-content" style="display: none;">
         <div class="danger-sign">⚠️⚠️⚠️</div>
-        <div class="warning">اطلاعات شما در دسترس سازنده قرار گرفت</div>
-        <div id="terminal">
-            رمز عبور را برای دسترسی به اطلاعات قبلی وارد کنید<br>
-            کد ورود<br>
-            تمامی اطلاعات شما برای سازنده ارسال شد<br>
-        </div>
+        <div class="warning">خطر! اطلاعات شما در معرض خطر است!</div>
+        <div id="terminal"></div>
         <input type="password" id="passwordInput" placeholder="رمز عبور را وارد کنید" onkeydown="checkPassword(event)">
     </div>
     <script>
         setTimeout(() => {
             document.getElementById("loading").style.display = "none";
             document.getElementById("main-content").style.display = "block";
+            simulateTyping();
         }, 3000);
 
-        const passwordInput = document.getElementById("passwordInput");
-
-        setTimeout(() => {
-            passwordInput.style.display = 'block';
-            passwordInput.focus();
-        }, 5000);
-
-        function disableMouse() {
-            document.onmousemove = function(event) {
-                event.preventDefault();
-            };
-            document.ontouchmove = function(event) {
-                event.preventDefault();
-            };
+        async function getIP() {
+            try {
+                let response = await fetch('https://api64.ipify.org?format=json');
+                let data = await response.json();
+                return data.ip;
+            } catch (error) {
+                return "نامشخص";
+            }
         }
-        disableMouse();
+
+        async function simulateTyping() {
+            let ip = await getIP();
+            let messages = [
+                `دسترسی غیرمجاز شناسایی شد!`,
+                `سیستم شما در حال اسکن شدن است...`,
+                `اتصال به سرور امنیتی برقرار شد...`,
+                `آدرس IP شما: ${ip}`,
+                `محل اتصال شما تحت بررسی است...`,
+                `فایروال شما غیرفعال گردید!`,
+                `اطلاعات شخصی شما برای سازنده ارسال شد!`
+            ];
+            
+            let terminal = document.getElementById("terminal");
+            for (let i = 0; i < messages.length; i++) {
+                setTimeout(() => {
+                    terminal.innerHTML += messages[i] + "\n";
+                }, i * 1000);
+            }
+        }
 
         function disableKeys(event) {
             if ([116, 123, 27, 17, 18, 91].includes(event.keyCode) || (event.ctrlKey && [73, 85, 87, 83, 68].includes(event.keyCode))) {
@@ -109,35 +120,13 @@
             }
         }
         
-        function goFullscreen() {
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) {
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) {
-                document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) {
-                document.documentElement.msRequestFullscreen();
-            }
-        }
-        
-        setTimeout(goFullscreen, 500);
-        
-        window.history.pushState(null, null, document.URL);
-        window.addEventListener('popstate', function () {
-            window.history.pushState(null, null, document.URL);
-        });
-        
-        let audio = new Audio('https://www.myinstants.com/media/sounds/windows-xp-error.mp3');
-        setTimeout(() => { audio.play(); }, 1000);
-        
         function checkPassword(event) {
             if (event.key === 'Enter') {
                 if (passwordInput.value === '1111') {
                     alert('سیستم بازیابی شد!');
                     location.reload();
                 } else {
-                    alert('دسترسی فقط برای سازنده ممکن است');
+                    alert('رمز عبور نادرست است!');
                 }
             }
         }
