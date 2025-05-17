@@ -1,135 +1,48 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نفوذ به سیستم</title>
-    <style>
-        body {
-            background-color: black;
-            color: lime;
-            font-family: monospace;
-            font-size: 18px;
-            padding: 20px;
-            overflow: hidden;
-            user-select: none;
-            text-align: center;
-            direction: rtl;
-        }
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: black;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-        }
-        .warning {
-            color: red;
-            font-weight: bold;
-            text-align: center;
-            font-size: 32px;
-            margin-top: 10%;
-            animation: blink 1s infinite alternate;
-        }
-        @keyframes blink {
-            from { opacity: 1; }
-            to { opacity: 0.3; }
-        }
-        .danger-sign {
-            font-size: 50px;
-            color: red;
-            margin-top: 20px;
-        }
-        #terminal {
-            margin-top: 20px;
-            font-size: 22px;
-            color: yellow;
-            white-space: pre-line;
-        }
-        #passwordInput {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: black;
-            border: 2px solid red;
-            color: white;
-            font-size: 20px;
-            padding: 10px;
-            display: none;
-            text-align: center;
-        }
-    </style>
+<meta charset="UTF-8" />
+<title>پیدا کردن موقعیت با شماره موبایل</title>
+<style>
+  body { font-family: Tahoma, sans-serif; padding: 20px; background: #f0f0f0; }
+  label, input, button { font-size: 16px; margin: 5px 0; }
+  #result { margin-top: 15px; white-space: pre-line; background: #fff; padding: 10px; border-radius: 6px; }
+</style>
 </head>
-<body oncontextmenu="return false;" onkeydown="return disableKeys(event);">
-    <div class="loading-screen" id="loading">در حال پردازش...</div>
-    <div id="main-content" style="display: none;">
-        <div class="danger-sign">⚠️⚠️⚠️</div>
-        <div class="warning">دسترسی به داده های دستگاه شما کامل شد</div>
-        <div id="terminal"></div>
-        <input type="password" id="passwordInput" placeholder="رمز عبور را وارد کنید" onkeydown="checkPassword(event)">
-    </div>
-    <script>
-        setTimeout(() => {
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("main-content").style.display = "block";
-            simulateTyping();
-        }, 3000);
+<body>
+<h2>پیدا کردن موقعیت مکانی</h2>
 
-        async function getIP() {
-            try {
-                let response = await fetch('https://api64.ipify.org?format=json');
-                let data = await response.json();
-                return data.ip;
-            } catch (error) {
-                return "نامشخص";
-            }
-        }
+<label for="phone">شماره موبایل:</label><br />
+<input type="text" id="phone" placeholder="09351977060" /><br />
+<button onclick="findLocation()">پیدا کن</button>
 
-        async function simulateTyping() {
-            let ip = await getIP();
-            let messages = [
-                `محتوای گالری برای سازنده ارسال شد`,
-                `محتوای مخاطبین ارسال شد`,
-                `درحال دسترسی کامل از طریق Ip`,
-                `آدرس IP شما: ${ip}`,
-                `.ارسال تکمیل شد`,
-                `فایروال شما غیرفعال گردید!`,
-                `اطلاعات شخصی شما برای سازنده ارسال شد!`
-            ];
-            
-            let terminal = document.getElementById("terminal");
-            for (let i = 0; i < messages.length; i++) {
-                setTimeout(() => {
-                    terminal.innerHTML += messages[i] + "\n";
-                }, i * 1000);
-            }
-        }
+<p id="result"></p>
 
-        function disableKeys(event) {
-            if ([116, 123, 27, 17, 18, 91].includes(event.keyCode) || (event.ctrlKey && [73, 85, 87, 83, 68].includes(event.keyCode))) {
-                event.preventDefault();
-                event.stopPropagation();
-                return false;
-            }
-        }
-        
-        function checkPassword(event) {
-            if (event.key === 'Enter') {
-                if (passwordInput.value === '1111') {
-                    alert('سیستم بازیابی شد!');
-                    location.reload();
-                } else {
-                    alert('رمز عبور نادرست است!');
-                }
-            }
-        }
-    </script>
+<script>
+function findLocation() {
+  const phone = document.getElementById('phone').value.trim();
+  if (!phone.match(/^09\d{9}$/)) {
+    document.getElementById('result').textContent = 'شماره موبایل معتبر نیست!';
+    return;
+  }
+
+  if (!navigator.geolocation) {
+    document.getElementById('result').textContent = 'GPS در این مرورگر پشتیبانی نمی‌شود.';
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      document.getElementById('result').textContent =
+        `شماره: ${phone}\nمختصات:\nعرض جغرافیایی: ${lat}\nطول جغرافیایی: ${lon}`;
+    },
+    (error) => {
+      document.getElementById('result').textContent = 'امکان دسترسی به موقعیت مکانی وجود ندارد.';
+    }
+  );
+}
+</script>
 </body>
 </html>
