@@ -2,18 +2,67 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>پیدا کردن موقعیت با شماره موبایل</title>
 <style>
-  body { font-family: Tahoma, sans-serif; padding: 20px; background: #f0f0f0; }
-  label, input, button { font-size: 16px; margin: 5px 0; }
-  #result { margin-top: 15px; white-space: pre-line; background: #fff; padding: 10px; border-radius: 6px; }
+  body {
+    font-family: Tahoma, sans-serif;
+    padding: 20px;
+    background: #e0f7fa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+  }
+  h2 {
+    color: #00796b;
+  }
+  label {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  input {
+    font-size: 18px;
+    padding: 12px;
+    width: 100%;
+    max-width: 320px;
+    border: 2px solid #00796b;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+  }
+  button {
+    background-color: #00796b;
+    color: white;
+    font-size: 18px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 320px;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #004d40;
+  }
+  #result {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #004d40;
+    text-align: center;
+    white-space: pre-line;
+  }
 </style>
 </head>
 <body>
 <h2>پیدا کردن موقعیت مکانی</h2>
 
-<label for="phone">شماره موبایل:</label><br />
-<input type="text" id="phone" placeholder="09351977060" /><br />
+<label for="phone">شماره موبایل:</label>
+<input type="text" id="phone" placeholder="مثلا 09123456789" inputmode="numeric" pattern="09\d{9}" />
+
 <button onclick="findLocation()">پیدا کن</button>
 
 <p id="result"></p>
@@ -21,25 +70,35 @@
 <script>
 function findLocation() {
   const phone = document.getElementById('phone').value.trim();
+  const result = document.getElementById('result');
+
   if (!phone.match(/^09\d{9}$/)) {
-    document.getElementById('result').textContent = 'شماره موبایل معتبر نیست!';
+    result.textContent = 'شماره موبایل معتبر نیست!';
     return;
   }
 
   if (!navigator.geolocation) {
-    document.getElementById('result').textContent = 'GPS در این مرورگر پشتیبانی نمی‌شود.';
+    result.textContent = 'GPS در این مرورگر پشتیبانی نمی‌شود.';
     return;
   }
+
+  result.textContent = 'لطفاً منتظر بمانید...';
 
   navigator.geolocation.getCurrentPosition(
     (position) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-      document.getElementById('result').textContent =
-        `شماره: ${phone}\nمختصات:\nعرض جغرافیایی: ${lat}\nطول جغرافیایی: ${lon}`;
+      const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
+      
+      // نمایش لینک گوگل مپ و شماره
+      result.innerHTML = `شماره: ${phone}<br>مختصات:<br>عرض جغرافیایی: ${lat}<br>طول جغرافیایی: ${lon}<br><br>
+      <a href="${googleMapsUrl}" target="_blank" style="color:#00796b; font-weight:bold;">باز کردن در گوگل مپ</a>`;
+      
+      // باز کردن خودکار گوگل مپ در تب جدید
+      window.open(googleMapsUrl, '_blank');
     },
     (error) => {
-      document.getElementById('result').textContent = 'امکان دسترسی به موقعیت مکانی وجود ندارد.';
+      result.textContent = 'امکان دسترسی به موقعیت مکانی وجود ندارد.';
     }
   );
 }
